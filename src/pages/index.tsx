@@ -6,7 +6,7 @@ import Movie from '@/components/Movie'
 
 export async function getServerSideProps(context: { query: any }) {
   const { query } = context
-  const searchTerm = query.q || 'spider-man'
+  const searchTerm = query.q || 'suits'
 
   try {
     const data = await request.get(`https://www.omdbapi.com/?apikey=9fb97b07&s=${searchTerm}`)
@@ -27,6 +27,14 @@ interface Props {
 export default function Index({movies}: Props) {
   const router = useRouter()
   const { q } = router.query
+
+  if (movies.Search == undefined) {
+    return (
+      <div className='w-full h-full items-center justify-center'>
+        <h1 className='text-6xl'>No movies found...</h1>
+      </div>
+    )
+  }
 
   return (
     <div>
