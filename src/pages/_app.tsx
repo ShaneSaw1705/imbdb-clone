@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className="w-screen flex justify-between items-center px-4 py-6">
         <ul className="list-none flex flex-row gap-3">
           <Link href={{pathname: '/', query: {q: search}}}>Home</Link>
-          <Link href={'/'}>test</Link>
         </ul>
         <input 
           type="text" 
