@@ -1,6 +1,42 @@
 import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+import request from "superagent";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  const [search, setSearch] = useState('')
+  const router = useRouter()
+
+  const handleSearch = () => {
+    router.push({
+      pathname: '/',
+      query: {q: search}
+    })
+  }
+
+  const handleKeyDown = (event: { key: string; }) => {
+    if (event.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
+  return (
+    <div>
+      <div className="w-screen flex justify-between items-center px-4 py-6">
+        <ul className="list-none flex flex-row gap-3">
+          <li>home</li>
+          <li>test</li>
+        </ul>
+        <input 
+          type="text" 
+          value={search} 
+          onChange={(e) => setSearch(e.target.value)} 
+          onKeyDown={handleKeyDown} 
+          className="text-slate-700"
+        />
+      </div>
+      <Component {...pageProps} />
+    </div>
+  );
 }
